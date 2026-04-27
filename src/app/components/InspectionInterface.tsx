@@ -82,6 +82,12 @@ export default function InspectionInterface() {
 
     if (isLastApplicant) {
       setFeedback(`DAY ${gameDay} COMPLETE. Accuracy: ${((stats.correct / (stats.approved + stats.denied)) * 100).toFixed(0)}%`);
+      // Advance to next day (in a full game, this would reset with new applicants)
+      setTimeout(() => {
+        setGameDay((prev) => prev + 1);
+        setCurrentApplicantIndex(0);
+        setStats({ approved: 0, denied: 0, correct: 0, mistakes: 0 });
+      }, 3000);
     } else {
       setCurrentApplicantIndex((prev) => prev + 1);
     }

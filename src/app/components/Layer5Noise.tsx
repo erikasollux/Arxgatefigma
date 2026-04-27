@@ -4,14 +4,14 @@ interface Layer5NoiseProps {
   onComplete: () => void;
 }
 
+const HIDDEN_CODES = ['STOP', 'THIS', 'HELP', 'ME', 'RETROGRADE'];
+const REQUIRED_CODES = 5;
+
 export default function Layer5Noise({ onComplete }: Layer5NoiseProps) {
   const [foundCodes, setFoundCodes] = useState<string[]>([]);
   const [inputCode, setInputCode] = useState('');
   const [error, setError] = useState('');
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  const HIDDEN_CODES = ['STOP', 'THIS', 'HELP', 'ME', 'RETROGRADE'];
-  const REQUIRED_CODES = 5;
 
   useEffect(() => {
     const canvas = canvasRef.current;
