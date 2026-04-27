@@ -40,7 +40,7 @@ export default function BootScreen({ onComplete, showContent }: BootScreenProps)
     }, 200);
 
     return () => clearInterval(interval);
-  }, [showContent]);
+  }, [showContent, onComplete]);
 
   return (
     <div className="size-full flex items-center justify-center bg-black p-8">

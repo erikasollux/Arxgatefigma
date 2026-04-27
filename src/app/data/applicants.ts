@@ -141,10 +141,19 @@ export const applicants: Applicant[] = [
         issueDate: '2023-06-01',
         expiryDate: '2026-06-01',
       },
+      {
+        type: 'vaccination',
+        number: 'VAX-095',
+        firstName: 'Elena',
+        lastName: 'Volkov',
+        vaccineType: 'COVID-19',
+        dateAdministered: '2024-03-15',
+        expiryDate: '2026-03-15',
+      },
     ],
   },
 
-  // Applicant 5 - Missing vaccination (should be denied based on rules)
+
   {
     id: 5,
     person: {

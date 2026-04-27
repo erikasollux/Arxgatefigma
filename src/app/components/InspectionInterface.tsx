@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { applicants } from '../data/applicants';
 import { Applicant, Document, isExpired, namesMatch } from '../types/documents';
 import DocumentView from './DocumentView';
@@ -8,6 +8,7 @@ export default function InspectionInterface() {
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
   const [feedback, setFeedback] = useState('');
   const [stats, setStats] = useState({ approved: 0, denied: 0, correct: 0, mistakes: 0 });
+  const statsRef = useRef(stats);
   const [gameDay, setGameDay] = useState(1);
 
   const currentApplicant = applicants[currentApplicantIndex];
@@ -52,10 +53,18 @@ export default function InspectionInterface() {
 
     if (!shouldDeny) {
       setFeedback('✓ APPROVED - Entry granted. Citizen processed correctly.');
-      setStats((prev) => ({ ...prev, approved: prev.approved + 1, correct: prev.correct + 1 }));
+      setStats((prev) => {
+        const next = { ...prev, approved: prev.approved + 1, correct: prev.correct + 1 };
+        statsRef.current = next;
+        return next;
+      });
     } else {
       setFeedback(`✗ MISTAKE - You approved someone with issues: ${issues.join(', ')}`);
-      setStats((prev) => ({ ...prev, approved: prev.approved + 1, mistakes: prev.mistakes + 1 }));
+      setStats((prev) => {
+        const next = { ...prev, approved: prev.approved + 1, mistakes: prev.mistakes + 1 };
+        statsRef.current = next;
+        return next;
+      });
     }
 
     setTimeout(nextApplicant, 2000);
@@ -67,10 +76,18 @@ export default function InspectionInterface() {
 
     if (shouldDeny) {
       setFeedback(`✓ DENIED - Correct decision. Issues: ${issues.join(', ')}`);
-      setStats((prev) => ({ ...prev, denied: prev.denied + 1, correct: prev.correct + 1 }));
+      setStats((prev) => {
+        const next = { ...prev, denied: prev.denied + 1, correct: prev.correct + 1 };
+        statsRef.current = next;
+        return next;
+      });
     } else {
       setFeedback('✗ MISTAKE - You denied a valid applicant with no issues.');
-      setStats((prev) => ({ ...prev, denied: prev.denied + 1, mistakes: prev.mistakes + 1 }));
+      setStats((prev) => {
+        const next = { ...prev, denied: prev.denied + 1, mistakes: prev.mistakes + 1 };
+        statsRef.current = next;
+        return next;
+      });
     }
 
     setTimeout(nextApplicant, 2000);
@@ -81,7 +98,10 @@ export default function InspectionInterface() {
     setSelectedDocument(null);
 
     if (isLastApplicant) {
-      setFeedback(`DAY ${gameDay} COMPLETE. Accuracy: ${((stats.correct / (stats.approved + stats.denied)) * 100).toFixed(0)}%`);
+      const s = statsRef.current;
+      const total = s.approved + s.denied;
+      const accuracy = total > 0 ? ((s.correct / total) * 100).toFixed(0) : '0';
+      setFeedback(`DAY ${gameDay} COMPLETE. Accuracy: ${accuracy}%`);
     } else {
       setCurrentApplicantIndex((prev) => prev + 1);
     }
