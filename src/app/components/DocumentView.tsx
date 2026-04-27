@@ -5,7 +5,7 @@ interface DocumentViewProps {
   person: Person;
 }
 
-export default function DocumentView({ document, person }: DocumentViewProps) {
+export default function DocumentView({ document, person: _person }: DocumentViewProps) {
   if (document.type === 'passport') {
     return (
       <div className="w-full max-w-2xl bg-gradient-to-br from-red-900 to-red-950 border-4 border-yellow-700 rounded-lg p-8 shadow-2xl">

@@ -106,7 +106,7 @@ export const applicants: Applicant[] = [
     ],
   },
 
-  // Applicant 4 - Clean with work pass
+  // Applicant 4 - Missing vaccination (should be denied)
   {
     id: 4,
     person: {
@@ -116,7 +116,8 @@ export const applicants: Applicant[] = [
       dateOfBirth: '1995-11-08',
       nationality: 'Republia',
       photo: '#e2904a',
-      hasIssues: false,
+      hasIssues: true,
+      issues: ['Missing required vaccination certificate'],
     },
     documents: [
       {
@@ -141,10 +142,19 @@ export const applicants: Applicant[] = [
         issueDate: '2023-06-01',
         expiryDate: '2026-06-01',
       },
+      {
+        type: 'vaccination',
+        number: 'VAX-095',
+        firstName: 'Elena',
+        lastName: 'Volkov',
+        vaccineType: 'COVID-19',
+        dateAdministered: '2024-03-15',
+        expiryDate: '2026-03-15',
+      },
     ],
   },
 
-  // Applicant 5 - Missing vaccination (should be denied based on rules)
+
   {
     id: 5,
     person: {

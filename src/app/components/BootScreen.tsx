@@ -5,25 +5,25 @@ interface BootScreenProps {
   showContent: boolean;
 }
 
+const bootSequence = [
+  'ARX GATE SYSTEM BOOT v1.0.0-DEV',
+  'Copyright (C) 2000-2025 Chronos Directorate',
+  '',
+  'Verifying system integrity...',
+  'Loading Chronos Core...',
+  'Establishing border parameters...',
+  'Initializing morality engine...',
+  'Monitoring agents...',
+  '',
+  'System Ready.',
+  '',
+  '"Borders are lines."',
+  '"Lines are control."',
+  '"Control is safety."',
+];
+
 export default function BootScreen({ onComplete, showContent }: BootScreenProps) {
   const [lines, setLines] = useState<string[]>([]);
-
-  const bootSequence = [
-    'ARX GATE SYSTEM BOOT v1.0.0-DEV',
-    'Copyright (C) 2000-2025 Chronos Directorate',
-    '',
-    'Verifying system integrity...',
-    'Loading Chronos Core...',
-    'Establishing border parameters...',
-    'Initializing morality engine...',
-    'Monitoring agents...',
-    '',
-    'System Ready.',
-    '',
-    '"Borders are lines."',
-    '"Lines are control."',
-    '"Control is safety."',
-  ];
 
   useEffect(() => {
     if (!showContent) return;
@@ -40,7 +40,7 @@ export default function BootScreen({ onComplete, showContent }: BootScreenProps)
     }, 200);
 
     return () => clearInterval(interval);
-  }, [showContent]);
+  }, [showContent, onComplete]);
 
   return (
     <div className="size-full flex items-center justify-center bg-black p-8">
