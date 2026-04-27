@@ -106,7 +106,7 @@ export const applicants: Applicant[] = [
     ],
   },
 
-  // Applicant 4 - Clean with work pass
+  // Applicant 4 - Missing vaccination (should be denied)
   {
     id: 4,
     person: {
@@ -116,7 +116,8 @@ export const applicants: Applicant[] = [
       dateOfBirth: '1995-11-08',
       nationality: 'Republia',
       photo: '#e2904a',
-      hasIssues: false,
+      hasIssues: true,
+      issues: ['Missing required vaccination certificate'],
     },
     documents: [
       {

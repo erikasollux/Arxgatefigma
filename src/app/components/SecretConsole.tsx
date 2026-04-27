@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { navigatePath, listDirectory, FileNode } from '../utils/fileSystem';
+import { navigatePath, listDirectory } from '../utils/fileSystem';
 
 interface SecretConsoleProps {
   onComplete: () => void;

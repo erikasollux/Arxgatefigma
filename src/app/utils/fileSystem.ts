@@ -152,9 +152,18 @@ the people? all digital. all approved or deleted."`,
 
 export function navigatePath(path: string): FileNode | null {
   const parts = path.split('/').filter(Boolean);
+
+  // If path is just '/ROOT' or empty, return ROOT itself
+  if (parts.length === 0 || (parts.length === 1 && parts[0] === 'ROOT')) {
+    return fileSystem.ROOT;
+  }
+
   let current: FileNode | undefined = fileSystem.ROOT;
 
-  for (const part of parts) {
+  // Skip the first 'ROOT' part if present, since we start at ROOT
+  const pathParts = parts[0] === 'ROOT' ? parts.slice(1) : parts;
+
+  for (const part of pathParts) {
     if (!current || current.type !== 'directory' || !current.children) {
       return null;
     }
